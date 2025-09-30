@@ -1,52 +1,38 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
-[RequireComponent(typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
-    public event Action<Cube> Split;
-    public event Action<Cube> Destroyed;
+    [SerializeField] private ColorChanger _colorChanger;
 
-    [field: SerializeField] public float SplitChance { get; private set; } = 1.0f;
-    [field: SerializeField] public int DecreaseValue { get; private set; } = 2;
-    [field: SerializeField] public int DecreaseChance { get; private set; } = 2;
+    private Rigidbody _rigidbody;
+    private Renderer _renderer;
 
-    public Renderer ChoiceCubeColor { get; private set; }
-    public Rigidbody CubePhysicsComponent { get; private set; }
+    public ColorChanger ColorChanger => _colorChanger;
 
     private void Awake()
     {
-        ChoiceCubeColor = GetComponent<Renderer>();
-        CubePhysicsComponent = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _renderer = GetComponent<Renderer>();
     }
 
-    private void OnMouseDown()
+    public void ChangeColor()
     {
-        if (UnityEngine.Random.value <= SplitChance)
+        if (_colorChanger != null && _renderer != null)
         {
-            TriggerSplit();
-        }
-        else
-        {
-            DestroySelf();
+            _colorChanger.ChangeColor(_renderer);
         }
     }
 
-    public void Initialize(float splitChance)
+    public void SetMass(float mass)
     {
-        SplitChance = splitChance;
+        if (_rigidbody != null)
+        {
+            _rigidbody.mass = mass;
+        }
     }
 
-    private void TriggerSplit()
+    public void SetColorChanger(ColorChanger colorChanger)
     {
-        Split?.Invoke(this);
-        Destroy(gameObject);
-    }
-
-    private void DestroySelf()
-    {
-        Destroyed?.Invoke(this);
-        Destroy(gameObject);
+        this._colorChanger = colorChanger;
     }
 }
