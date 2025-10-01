@@ -1,28 +1,19 @@
-using System.Collections;
 using UnityEngine;
 
 public class Raycaster : MonoBehaviour
 {
     [SerializeField] private EventHandler _eventHandler;
 
-    private void Update()
+    public void CastRay(Vector3 mousePosition)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-    }
-
-    private void Shoot()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
             GameObject hitObject = hitInfo.collider.gameObject;
-            Cube cube = hitObject.GetComponent<Cube>();
+            Cube cube;
 
-            if (cube != null)
+            if (hitObject.TryGetComponent<Cube>(out cube))
             {
                 _eventHandler.Hit(cube);
             }

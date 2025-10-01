@@ -13,21 +13,9 @@ public class EventHandler : MonoBehaviour
     private float _splitChance = 1f;
     private int _halver = 2;
 
-    private event Action<Cube> OnHit;
-
-    private void OnEnable()
-    {
-        OnHit += HandleHit;
-    }
-
-    private void OnDisable()
-    {
-        OnHit -= HandleHit;
-    }
-
     public void Hit(Cube cube)
     {
-        OnHit?.Invoke(cube);
+        HandleHit(cube);
     }
 
     private void HandleHit(Cube cube)
@@ -38,25 +26,30 @@ public class EventHandler : MonoBehaviour
     private IEnumerator HitCoroutine(Cube cube)
     {
         float random = UnityEngine.Random.value;
+        float delay = 0.2f;
 
         if (random <= _splitChance)
         {
             _splitChance /= _halver;
 
-            float mass = cube.GetComponent<Rigidbody>().mass;
+            Rigidbody cubeRigidbody = cube.Rigidbody;
 
             if (_spawner != null && cube.ColorChanger != null)
-                _spawner.Spawn(cube.transform.position, cube.transform.localScale, _minNewCubes, _maxNewCubes,
-                                   cube.ColorChanger, mass);
-
-            yield return new WaitForSeconds(0.2f);
-
-            if (_exploder != null && cube.TryGetComponent(out Rigidbody rigidbody))
             {
-                _exploder.Explode(rigidbody);
+                Rigidbody[] newRigidbodies = _spawner.Spawn(cube.transform.position, cube.transform.localScale, _minNewCubes, _maxNewCubes, cube.ColorChanger, cubeRigidbody.mass);
+
+                yield return new WaitForSeconds(delay);
+
+                if (_exploder != null)
+                {
+                    _exploder.Explode(newRigidbodies);
+                }
             }
         }
 
-        Destroy(cube.gameObject);
+        if (cube != null)
+        {
+            Destroy(cube.gameObject);
+        }
     }
 }

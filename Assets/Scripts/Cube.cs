@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private ColorChanger _colorChanger;
@@ -8,6 +10,7 @@ public class Cube : MonoBehaviour
     private Renderer _renderer;
 
     public ColorChanger ColorChanger => _colorChanger;
+    public Rigidbody Rigidbody => _rigidbody;
 
     private void Awake()
     {
@@ -33,6 +36,6 @@ public class Cube : MonoBehaviour
 
     public void SetColorChanger(ColorChanger colorChanger)
     {
-        this._colorChanger = colorChanger;
+        _colorChanger = colorChanger;
     }
 }
