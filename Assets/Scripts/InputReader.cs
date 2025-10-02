@@ -1,14 +1,17 @@
+using System;
 using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    [SerializeField] private Raycaster _raycaster;
+    public Action<Vector3> OnMouseClick;
 
-    void Update()
+    private const int LeftMouseButton = 0;
+
+    private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(LeftMouseButton))
         {
-            _raycaster.CastRay(Input.mousePosition);
+            OnMouseClick?.Invoke(Input.mousePosition);
         }
     }
 }

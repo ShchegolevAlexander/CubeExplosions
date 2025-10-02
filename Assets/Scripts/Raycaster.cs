@@ -1,8 +1,21 @@
+using System;
 using UnityEngine;
 
 public class Raycaster : MonoBehaviour
 {
-    [SerializeField] private EventHandler _eventHandler;
+    [SerializeField] private InputReader _inputReader;
+
+    public Action<Cube> OnCubeHit;
+
+    private void OnEnable()
+    {
+        _inputReader.OnMouseClick += CastRay;
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.OnMouseClick -= CastRay;
+    }
 
     public void CastRay(Vector3 mousePosition)
     {
@@ -15,7 +28,7 @@ public class Raycaster : MonoBehaviour
 
             if (hitObject.TryGetComponent<Cube>(out cube))
             {
-                _eventHandler.Hit(cube);
+                OnCubeHit?.Invoke(cube);
             }
         }
     }

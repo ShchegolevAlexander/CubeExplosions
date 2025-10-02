@@ -6,6 +6,7 @@ public class EventHandler : MonoBehaviour
 {
     [SerializeField] private Spawner _spawner;
     [SerializeField] private Exploder _exploder;
+    [SerializeField] private Raycaster _raycaster;
 
     [SerializeField] private int _minNewCubes = 2;
     [SerializeField] private int _maxNewCubes = 6;
@@ -13,9 +14,14 @@ public class EventHandler : MonoBehaviour
     private float _splitChance = 1f;
     private int _halver = 2;
 
-    public void Hit(Cube cube)
+    private void OnEnable()
     {
-        HandleHit(cube);
+        _raycaster.OnCubeHit += HandleHit;
+    }
+
+    private void OnDisable()
+    {
+        _raycaster.OnCubeHit -= HandleHit;
     }
 
     private void HandleHit(Cube cube)

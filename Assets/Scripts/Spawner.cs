@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
                 }
             }
 
-            rigidbodyes[i] = cube.GetComponent<Rigidbody>();
+            rigidbodyes[i] = cube.Rigidbody;
         }
 
         return rigidbodyes;
