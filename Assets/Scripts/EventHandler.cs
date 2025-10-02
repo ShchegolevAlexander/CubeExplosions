@@ -42,12 +42,19 @@ public class EventHandler : MonoBehaviour
 
             if (_spawner != null && cube.ColorChanger != null)
             {
-                Rigidbody[] newRigidbodies = _spawner.Spawn(cube.transform.position, cube.transform.localScale, _minNewCubes, _maxNewCubes, cube.ColorChanger, cubeRigidbody.mass);
+                Cube[] newCubes = _spawner.Spawn(cube.transform.position, cube.transform.localScale, _minNewCubes, _maxNewCubes, cube.ColorChanger, cubeRigidbody.mass);
 
                 yield return new WaitForSeconds(delay);
 
                 if (_exploder != null)
                 {
+                    Rigidbody[] newRigidbodies = new Rigidbody[newCubes.Length];
+
+                    for (int i = 0; i < newCubes.Length; i++)
+                    {
+                        newRigidbodies[i] = newCubes[i].Rigidbody;
+                    }
+
                     _exploder.Explode(newRigidbodies);
                 }
             }

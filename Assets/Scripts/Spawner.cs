@@ -6,11 +6,11 @@ public class Spawner : MonoBehaviour
 
     private float _halver = 2f;
 
-    public Rigidbody[] Spawn(Vector3 position, Vector3 scale, int minCount, int maxCount, ColorChanger colorChanger, float mass)
+    public Cube[] Spawn(Vector3 position, Vector3 scale, int minCount, int maxCount, ColorChanger colorChanger, float mass)
     {
         int count = Random.Range(minCount, maxCount + 1);
         Vector3 newScale = scale / _halver;
-        Rigidbody[] rigidbodyes = new Rigidbody[count];
+        Cube[] cubes = new Cube[count];
 
         for (int i = 0; i < count; i++)
         {
@@ -39,9 +39,9 @@ public class Spawner : MonoBehaviour
                 }
             }
 
-            rigidbodyes[i] = cube.Rigidbody;
+            cubes[i] = cube;
         }
 
-        return rigidbodyes;
+        return cubes;
     }
 }
