@@ -16,12 +16,12 @@ public class EventHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _raycaster.OnCubeHit += HandleHit;
+        _raycaster.CubeHit += HandleHit;
     }
 
     private void OnDisable()
     {
-        _raycaster.OnCubeHit -= HandleHit;
+        _raycaster.CubeHit -= HandleHit;
     }
 
     private void HandleHit(Cube cube)

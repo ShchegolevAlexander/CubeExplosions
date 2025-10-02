@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
             Cube newCube = Instantiate(_cubePrefab, position + offset, Quaternion.identity);
             newCube.transform.localScale = newScale;
 
-            Cube cube = newCube.GetComponent<Cube>();
+            Cube cube = newCube;
 
             if (cube != null)
             {

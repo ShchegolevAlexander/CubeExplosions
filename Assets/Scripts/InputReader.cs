@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    public Action<Vector3> OnMouseClick;
+    public event Action<Vector3> MouseClick;
 
     private const int LeftMouseButton = 0;
 
@@ -11,7 +11,7 @@ public class InputReader : MonoBehaviour
     {
         if (Input.GetMouseButton(LeftMouseButton))
         {
-            OnMouseClick?.Invoke(Input.mousePosition);
+            MouseClick?.Invoke(Input.mousePosition);
         }
     }
 }

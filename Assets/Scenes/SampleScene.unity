@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawner: {fileID: 1084546750}
   _exploder: {fileID: 1031811844}
+  _raycaster: {fileID: 726291632}
   _minNewCubes: 2
   _maxNewCubes: 6
 --- !u!4 &341647759
@@ -531,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9ab2c132c66d0418c09b2f93cbf55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventHandler: {fileID: 341647758}
+  _inputReader: {fileID: 726291634}
 --- !u!4 &726291633
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099230e021e6bbe4cadc4b54080d585b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _raycaster: {fileID: 726291632}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,8 +681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0511880118a4aef46a54c79156ee845e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minForce: 0.5
-  _maxForce: 1
+  _explosionForce: 10
+  _explosionRadius: 5
+  _upwardModifier: 0.5
 --- !u!4 &1031811845
 Transform:
   m_ObjectHideFlags: 0
@@ -913,6 +914,18 @@ PrefabInstance:
     - target: {fileID: 1073989475384388789, guid: 714e99fe82b54f24e936125a29a8452c, type: 3}
       propertyPath: m_Name
       value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497217194300405348, guid: 714e99fe82b54f24e936125a29a8452c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497217194300405348, guid: 714e99fe82b54f24e936125a29a8452c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497217194300405348, guid: 714e99fe82b54f24e936125a29a8452c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2497217194300405348, guid: 714e99fe82b54f24e936125a29a8452c, type: 3}
       propertyPath: m_LocalPosition.x

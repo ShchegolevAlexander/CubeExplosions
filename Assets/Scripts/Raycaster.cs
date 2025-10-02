@@ -5,16 +5,16 @@ public class Raycaster : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
 
-    public Action<Cube> OnCubeHit;
+    public event Action<Cube> CubeHit;
 
     private void OnEnable()
     {
-        _inputReader.OnMouseClick += CastRay;
+        _inputReader.MouseClick += CastRay;
     }
 
     private void OnDisable()
     {
-        _inputReader.OnMouseClick -= CastRay;
+        _inputReader.MouseClick -= CastRay;
     }
 
     public void CastRay(Vector3 mousePosition)
@@ -28,7 +28,7 @@ public class Raycaster : MonoBehaviour
 
             if (hitObject.TryGetComponent<Cube>(out cube))
             {
-                OnCubeHit?.Invoke(cube);
+                CubeHit?.Invoke(cube);
             }
         }
     }
